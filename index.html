@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            margin: 1rem;
+            background: #2c2f33;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.3);
+        }
+
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .login-input {
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: none;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        #script-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #1c1c1c;
+            color: #fff;
+            resize: none;
+        }
+
+        .close-btn {
+            background: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-screen" class="container">
+        <h1>Login</h1>
+        <div class="login-container">
+            <input type="text" class="login-input" placeholder="Username" id="username">
+            <input type="password" class="login-input" placeholder="Password" id="password">
+            <button class="btn" onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <div id="main-screen" class="container" style="display: none;">
+        <h1>Nova</h1>
+        <a href="https://discord.gg/novahub" target="_blank" class="btn">Join Discord Server</a>
+        <button class="btn" onclick="showScript()">Get Script</button>
+
+        <div id="script-container">
+            <button class="btn close-btn" onclick="closeScript()">X</button>
+            <h2>Script</h2>
+            <textarea id="script" readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/nova7q/nova/refs/heads/main/nova", true))()</textarea>
+            <button class="btn" onclick="copyScript()">Copy Script</button>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+            if (username && password) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-screen').style.display = 'block';
+            } else {
+                alert('Enter valid credentials!');
+            }
+        }
+
+        function showScript() {
+            document.getElementById('script-container').style.display = 'block';
+        }
+
+        function closeScript() {
+            document.getElementById('script-container').style.display = 'none';
+        }
+
+        function copyScript() {
+            const textarea = document.getElementById('script');
+            textarea.select();
+            document.execCommand('copy');
+            alert('Script copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
